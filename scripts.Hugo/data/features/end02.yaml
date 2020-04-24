@@ -1,0 +1,7 @@
+weight:      80
+name:        "精华汇聚（導航）"
+icon:        "fas fa-desktop"
+animated:    "slideInLeft"
+url:         pages/front/features/end02
+description: |
+    " 精华汇聚 "

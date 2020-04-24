@@ -1,0 +1,4 @@
+# www.robotstxt.org/
+# hddp://code.google.com/web/controlcrawlindex/
+
+User-agent: *

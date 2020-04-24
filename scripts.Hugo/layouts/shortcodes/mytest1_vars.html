@@ -1,0 +1,71 @@
+<div>
+.Name -- {{ .Name }} --<br>
+.Ordinal -- {{ .Ordinal }} --<br>
+.Parent -- {{ .Parent }} --<br>
+.IsNamedParams -- {{ .IsNamedParams }} --<br>
+.title1 -- {{ $.Page.Params }} --<br>
+.title2 -- {{ $.Page.Params.title }} --<br>
+.title3 -- {{ $.Page.Params.Title }} --<br>
+.title4 -- {{ $.Page.Params.Title1 }} --<br>
+.xxx1 -- {{ if $.Page.Params.xxx1 }}isSet{{ else }}notSet{{ end }} --<br>
+.xxx2 -- {{ if $.Page.Params.xxx2 }}isSet{{ else }}notSet{{ end }} --<br>
+.xxx3 -- {{ if $.Page.Params.xxx3 }}isSet{{ else }}notSet{{ end }} --<br>
+.xxx5 -- {{ if $.Page.Params.xxx5 }}isSet{{ else }}notSet{{ end }} --<br>
+{{ with $.Page.Params.xxx1 }} xxx1 -  {{ . }}{{ end }} --<br>
+{{ with $.Page.Params.xxx2 }} xxx2 -  {{ . }}{{ end }} --<br>
+{{ with $.Page.Params.xxx3 }} xxx3 -  {{ . }}{{end}} --<br>
+{{ with $.Page.Params.xxx5 }} xxx5 -  {{ . }}{{end}} --<br>
+
+ 
+relURL:{{ "mystyle.css" | relURL }},
+
+{{ $stat := os.Stat "README.md" }}
+{{ $stat.Name }} → "README.txt"
+{{ $stat.Size }} → 30
+
+para1 :{{ .Get 0 }},{{ path.Dir .Page.File }},
+{{ $tBase1 := path.Dir .Page.File }},
+{{ $tBase20 := path.Join "content" $tBase1}}
+{{ $tBase21 := path.Join $tBase20 "end09test.ff1"}}
+
+<br>
+{{ $tBase3 := readDir $tBase20 }}
+tBase3-1:<br>
+{{ range $tBase3 }}
+tBase3-2:{{ .Name }},<br>
+tBase3-3:{{ .Size }},<br>
+<br>
+{{ end }}
+tBase3-9:<br>
+
+<br>
+<br>
+Pages vars:
+<br>
+<br>
+
+.Aliases :{{ .Page.Aliases }},<br>
+.Date :{{ .Page.Date }},<br>
+.File :{{ .Page.File }},<br>
+.IsHome :{{ .Page.IsHome }},<br>
+.IsPage :{{ .Page.IsPage }},<br>
+.Kind :{{ .Page.Kind }},<br>
+.Language :{{ .Page.Language }},<br>
+.Lastmod :{{ .Page.Lastmod }},<br>
+.LinkTitle :{{ .Page.LinkTitle }},<br>
+.Site :{{ .Page.Site }},<br>
+.Sites :{{ .Page.Sites }},<br>
+.Title :{{ .Page.Title }},<br>
+.Type :{{ .Page.Type }},<br>
+.Weight :{{ .Page.Weight }},<br>
+.WordCount :{{ .Page.WordCount }},<br>
+.Aliases :{{ .Page.Aliases }},<br>
+.Aliases :{{ .Page.Aliases }},<br>
+.Aliases :{{ .Page.Aliases }},<br>
+.Aliases :{{ .Page.Aliases }},<br>
+.Aliases :{{ .Page.Aliases }},<br>
+
+<br>
+
+
+</div>
