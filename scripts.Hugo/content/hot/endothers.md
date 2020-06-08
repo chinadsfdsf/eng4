@@ -11,7 +11,9 @@ categories:
   - features
 ---
 
+{{< siteParamsRecentPostsTitle >}} 
 {{< my2buildtime "buildtime 创建时间" >}}
+{{< my2linktextonly link="/time/001/" cn=" 全球不同地区时间 " >}}
 
 
 {{< mybrline1 >}}

@@ -60,6 +60,7 @@ rp:
 
 define help_textHU
 
+	um    -> update_makefile  : git pull  && cat Makefile --- ../Makefile 
 	rg    -> regen            : regen all hugo
 	rgt   -> regenTestVersion : regen all hugo use test version of hugo
 	s     -> server           : run hugo   server to test local
@@ -76,6 +77,7 @@ define help_textHU
 	v2    -> vim test file 02 for hugo
 	v3    -> vim test file 03 for hugo
 	m3u   -> gen the m3u
+	byauthor   -> gen the byauthor
 	wav   -> deal with 22.wav
 
 endef
@@ -91,7 +93,16 @@ $(if $(testHugo1),$(eval UseHugoOnTop:=1),\
 	$(if $(testHugo3),$(eval UseInTheme:=1),$(error "not_fit_dir"))\
 	))
 
-pythonVersion:=$(shell python --version |awk '{printf $$2}'|awk -F. '{print $$1}')
+
+#pythonVersion:=$(shell python --version |awk '{printf $$2}'|awk -F. '{print $$1}')
+pythonVersion3exist:=$(shell which python3)
+ifeq (,$(pythonVersion3exist))
+pythonVersion:=2
+pyBin:=python2
+else
+pythonVersion:=3
+pyBin:=python3
+endif
 
 ############################################### UseHugoOnTop  start
 ############################################### UseHugoOnTop  start
@@ -147,7 +158,7 @@ um update_makefile :
 	(cd scripts.Hugo/themes/ && git pull  && cat Makefile > ../Makefile )
 
 rg:regen
-regen: wav m3u sed01 regen_pure
+regen: byauthor wav m3u sed01 regen_pure
 
 s : server
 server:
@@ -170,17 +181,17 @@ pyHttP:=$(pyHttp$(pythonVersion))
 s2: server2
 server2:
 	[ -f scripts.Hugo/config.toml ] || ( echo "why_no_51 file <scripts.Hugo/config.toml> exist ?" ; exit 51 )
-	cd public/ && python -m $(pyHttP) 33221
+	cd public/ && $(pyBin) -m $(pyHttP) 33221
 
 s3: server3
 server3:
 	[ -f scripts.Hugo/config.toml ] || ( echo "why_no_51 file <scripts.Hugo/config.toml> exist ?" ; exit 51 )
-	cd public/ && python -m $(pyHttP) 33223
+	cd public/ && $(pyBin) -m $(pyHttP) 33223
 
 s5: server5
 server5:
 	[ -f scripts.Hugo/config.toml ] || ( echo "why_no_51 file <scripts.Hugo/config.toml> exist ?" ; exit 51 )
-	cd public/ && python -m $(pyHttP) 33225
+	cd public/ && $(pyBin) -m $(pyHttP) 33225
 
 m3u  :
 #	m3u8_gen_01.sh https://`cat CNAME`/blog     docs/all.m3u8                                 scripts.Hugo/content/blog
@@ -189,6 +200,9 @@ m3u  :
 #	mkdir -p scripts.Hugo/content/hot/endothers/
 #	m3u8_gen_01.sh https://`cat CNAME`/blog     scripts.Hugo/content/hot/endothers/all.m3u8   scripts.Hugo/content/blog
 	m3u8_gen_01.sh https://`cat CNAME`/blog     scripts.Hugo/content/all.m3u8                 scripts.Hugo/content/blog
+
+byauthor  :
+	genHugoAuthor.sh
 
 wav:
 	wav_gen_22_wav_list.sh    https://`cat CNAME`/blog     scripts.Hugo/content/all.m3u8      scripts.Hugo/content/blog
